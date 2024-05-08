@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="ef79dbb9-a454-4456-99ba-9e83186a9dfc" />
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="b03de8d9-29db-4b25-916d-4b0d9565f796" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="munittestingFlow" doc:id="cd169c7c-8577-4a1c-9b82-5966c1cc0c30" >
+		<http:listener doc:name="Listener" doc:id="1ab2f3ac-10f7-4990-8c39-6985d72dac01" config-ref="HTTP_Listener_config" path="weather"/>
+		<http:request method="GET" doc:name="Request" doc:id="611a6343-050d-462b-acab-2f641fcfa040" config-ref="HTTP_Request_configuration" url="https://cc0049dd-f1a0-442b-a4c3-184ec752a0f4.mock.pstmn.io">
+			<http:query-params ><![CDATA[#[output application/java
+---
+{
+	"Key" : "Value"
+}]]]></http:query-params>
+		</http:request>
+	</flow>
+</mule>
