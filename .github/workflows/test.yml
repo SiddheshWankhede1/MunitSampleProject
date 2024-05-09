@@ -29,8 +29,7 @@ jobs:
         java-version: 8
         distribution: 'zulu'
     
-    - name: Print effective-settings (optional)
-      run: mvn help:effective-settings
+
 
     - name: Test with Maven
       run: mvn test --settings .maven/settings.xml
