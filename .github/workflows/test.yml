@@ -1,0 +1,37 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+    
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      CA_CLIENT_ID: ${{ secrets.CA_CLIENT_ID }}
+      CA_CLIENT_SECRET: ${{ secrets.CA_CLIENT_SECRET }}
+    
+    steps:
+    
+    - uses: actions/checkout@v3
+    
+    - uses: actions/cache@v3
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
+    
+    - name: Set up JDK
+      uses: actions/setup-java@v3
+      with:
+        java-version: 8
+        distribution: 'zulu'
+    
+    - name: Print effective-settings (optional)
+      run: mvn help:effective-settings
+
+    - name: Test with Maven
+      run: mvn test --settings .maven/settings.xml
+    
