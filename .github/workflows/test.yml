@@ -6,7 +6,9 @@ on:
   workflow_dispatch:
     
 jobs:
+
   test:
+  
     runs-on: ubuntu-latest
     env:
       CA_CLIENT_ID: ${{ secrets.CA_CLIENT_ID }}
@@ -34,7 +36,7 @@ jobs:
     - name: Test with Maven
       run: mvn test -s settings.xml
  
-build:
+  build:
     needs: test
     runs-on: ubuntu-latest
     env:
@@ -58,43 +60,15 @@ build:
         java-version: 8
         distribution: 'zulu'
     
-    - name: Print effective-settings (optional)
-      run: mvn help:effective-settings
+  
     
     - name: Build with Maven
       run: mvn -B package -s settings.xml -f pom.xml
 
  
 
-    - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v4.3.3
-      with:
-    # Artifact name
-         name: artifact
-    # A file, directory or wildcard pattern that describes what to upload
-         path: /home/runner/work/mulesoftRepo/mulesoftRepo/order-management/target/order-management-1.0.2-mule-application.jar
-
-  upload:
-    needs: build
-    runs-on: ubuntu-latest
-    env:
-      CA_CLIENT_ID: ${{ secrets.CA_CLIENT_ID }}
-      CA_CLIENT_SECRET: ${{ secrets.CA_CLIENT_SECRET }}
-
-    steps:    
     
-    - uses: actions/checkout@v3
-    
-    - uses: actions/cache@v3
-      with:
-        path: ~/.m2/repository
-        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-        restore-keys: |
-          ${{ runner.os }}-maven-
 
-    - name: Download a Build Artifact
-      uses: actions/download-artifact@v4.1.7
-      with:
-        name: artifact
+  
     
     
