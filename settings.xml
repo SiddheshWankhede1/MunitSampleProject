@@ -1,3 +1,10 @@
+<?xml version="1.0"?>
+<settings>
+
+  <pluginGroups>
+    <pluginGroup>org.mule.tools</pluginGroup>
+  </pluginGroups>
+
 <settings>
 <servers>
 <server>
@@ -6,4 +13,27 @@
 	 <password>340514f7399f4d0d9296d9d3a387c310~?~688E46D9bfcb46e28F4Cd84a1c62Fef5</password>
 </server>
 </servers>
+</settings>
+ <profiles>
+    <profile>
+      <id>Mule</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <repositories>
+        <repository>
+          <id>MuleRepository</id>
+          <name>MuleRepository</name>
+          <url>https://repository.mulesoft.org/nexus-ee/content/repositories/releases-ee/</url>
+          <layout>default</layout>
+          <releases>
+            <enabled>true</enabled>
+          </releases>
+          <snapshots>
+            <enabled>true</enabled>
+          </snapshots>
+        </repository>     
+      </repositories>
+    </profile>
+  </profiles>
 </settings>
