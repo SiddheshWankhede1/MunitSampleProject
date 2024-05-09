@@ -4,8 +4,7 @@ name: Munit Test
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  workflow_dispatch: 
     
 jobs:
   test:
